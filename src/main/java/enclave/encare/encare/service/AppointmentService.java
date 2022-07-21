@@ -19,6 +19,8 @@ public interface AppointmentService {
 
     List<AppointmentResponse> doctorFindBySymptoms(String symptoms,Long accountId);
 
+    List<AppointmentResponse> doctorFindByKey(String key,Long accountId);
+
 
     boolean newAppointment(AppointmentForm appointmentForm);
 

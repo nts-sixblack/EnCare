@@ -26,6 +26,10 @@ public interface AppointmentRepository extends JpaRepository<Appointment, Long> 
     List<Appointment> find_by_descriptions_and_accountId(String descriptions,Long accountId);
     @Query("SELECT ap from Appointment ap WHERE ap.symptoms like %?1% and ap.doctor.account.accountId= ?2")
     List<Appointment> find_by_symptoms_and_accountId(String symptoms,Long accountId);
+    @Query("SELECT ap from Appointment ap " +
+            "WHERE (ap.symptoms like %?1% or ap.description like %?1% or ap.user.account.name like %?1% " +
+            "or ap.user.account.phone like %?1% or ap.doctor.category.name like %?1%) and ap.doctor.account.accountId= ?2")
+    List<Appointment> find_by_key_and_accountId(String key,Long accountId);
     List<Appointment> findByStatusStatusIdAndAndDoctor_Account_AccountIdOrderByCreateDate(Long statusId,Long accountId);
     Appointment findByAppointmentIdAndAndDoctor_Account_AccountIdOrderByCreateDate(Long appointmentId,Long accountId);
 }

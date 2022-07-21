@@ -214,16 +214,19 @@ public class DoctorController {
         );
     }
 
-    @GetMapping("/appointment/search")
-    public ResponseEntity<ResponseObject> searchAppointment(@RequestParam(required = false) String name,
+    @GetMapping("/appointments/search")
+    public ResponseEntity<ResponseObject> searchAppointment(@RequestParam(required = true) String key,
+                                                            @RequestParam(required = false) String name,
                                                             @RequestParam(required = false) String description,
                                                             @RequestParam(required = false) String symptoms,
                                                             @RequestParam(required = false) String phone
     ) {
 
         List<AppointmentResponse> appointmentResponse = new ArrayList<>();
-        name = name.trim();
-        if (name != null || name.length() > 0)
+
+        if (key!=null&&key.trim().length()>0)
+            appointmentResponse.addAll(appointmentService.doctorFindByKey(key.trim(),getAccountId()));
+        if (name != null && name.trim().length() > 0)
             appointmentResponse.addAll(appointmentService.doctorFindByName(name,getAccountId())) ;
         if (description != null)
             appointmentResponse.addAll(appointmentService.doctorFindByDescriptions(description.trim(),getAccountId()));

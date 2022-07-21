@@ -126,6 +126,14 @@ public class AppointmentServiceImpl implements AppointmentService {
     }
 
     @Override
+    public List<AppointmentResponse> doctorFindByKey(String key, Long accountId) {
+        List<Appointment> appointmentList = appointmentRepository.find_by_key_and_accountId(key,accountId);
+        if (appointmentList == null) return null;
+
+        return transformData(appointmentList);
+    }
+
+    @Override
     public boolean newAppointment(AppointmentForm appointmentForm) {
 
         Date day = TimeConfig.getDate(appointmentForm.getDay());
