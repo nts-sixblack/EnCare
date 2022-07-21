@@ -169,8 +169,8 @@ public class DoctorController {
 
 
         DoctorResponse doctorResponse = doctorService.findByAccountId(getAccountId());
-        if (doctorResponse == null) return ResponseEntity.status(HttpStatus.OK).body(
-                new ResponseObject(400, "You are not doctor", null)
+        if (doctorResponse == null) return ResponseEntity.status(HttpStatus.FORBIDDEN).body(
+                new ResponseObject(403, "You are not current doctor", null)
         );
         List<AppointmentResponse> appointmentResponseList = new ArrayList<>();
         appointmentResponseList = appointmentService.findByDoctorId(doctorResponse.getDoctorId());
@@ -185,7 +185,7 @@ public class DoctorController {
 
         StatusResponse statusResponse = statusService.findById(statusId);
         if (statusResponse == null) {
-            return ResponseEntity.status(HttpStatus.OK).body(
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(
                     new ResponseObject(400, "Status is not exist !", null)
             );
         }
@@ -205,7 +205,7 @@ public class DoctorController {
 
         AppointmentResponse appointmentResponse = appointmentService.findByAppointmentIdAndAccountId(appointmentId, getAccountId());
         if (appointmentResponse == null) {
-            return ResponseEntity.status(HttpStatus.OK).body(
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(
                     new ResponseObject(400, "Appointment is not exist", null)
             );
         }
@@ -241,7 +241,7 @@ public class DoctorController {
             appointmentResponse.addAll(appointmentResponseSet);
         }
         if (appointmentResponse == null || appointmentResponse.isEmpty() || appointmentResponse.size() < 1) {
-            return ResponseEntity.status(HttpStatus.OK).body(
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(
                     new ResponseObject(400, "Result not found", null)
             );
         }
@@ -255,7 +255,7 @@ public class DoctorController {
 
         AppointmentResponse appointmentResponse = appointmentService.findByAppointmentIdAndAccountId(appointmentId, getAccountId());
         if (appointmentResponse == null) {
-            return ResponseEntity.status(HttpStatus.OK).body(
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(
                     new ResponseObject(400, "Appointment is not exist", null)
             );
         }
@@ -288,7 +288,7 @@ public class DoctorController {
         AppointmentResponse appointmentResponse = new AppointmentResponse();
         appointmentResponse = appointmentService.findByAppointmentIdAndAccountId(appointmentId, getAccountId());
         if (appointmentResponse == null) {
-            return ResponseEntity.status(HttpStatus.OK).body(
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(
                     new ResponseObject(400, "Appointment is not exist", null)
             );
         }
@@ -316,7 +316,7 @@ public class DoctorController {
         AppointmentResponse appointmentResponse = new AppointmentResponse();
         appointmentResponse = appointmentService.findByAppointmentIdAndAccountId(appointmentId, getAccountId());
         if (appointmentResponse == null) {
-            return ResponseEntity.status(HttpStatus.OK).body(
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(
                     new ResponseObject(400, "Appointment is not exist", null)
             );
         }
